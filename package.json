@@ -1,0 +1,22 @@
+{
+  "name": "reactbyakshay",
+  "version": "1.0.0",
+  "description": "This is React by Akshay",
+  "scripts": {
+    "start": "parcel index.html",
+    "build":"parcel build index.html",
+    "test": "jest"
+  },
+  "author": "LavanyaKrishnan",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "browserslist":[
+    "last 2 versions"
+  ]
+}
