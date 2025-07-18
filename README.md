@@ -15,3 +15,8 @@ we also wants to add the node_modules inside the gitignore file because it's a h
 - error handling
 - Diagonastic
 - Tree shaking algorithm 
+
+
+# map over any array key property is important
+# destucturing for object properties for props passing 
+# named and default export and import module 
