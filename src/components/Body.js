@@ -3,47 +3,47 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import ResCard from "./ResCard";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import useRestaurantsList from "../utils/useRestaurantsList";
 
 const Body = () => {
-  // Local State Variable - Super powerful variable
-  const [listOfRestaurants, setListOfRestraunt] = useState([]);
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const itemPerPage = 5;
 
   const [searchText, setSearchText] = useState("");
 
-  // Whenever state variables update, react triggers a reconciliation cycle(re-renders the component)
   console.log("Body Rendered");
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const {
+    listOfRestaurants,
+    filteredRestaurant,
+    currentPage,
+    setFilteredRestaurant,
+    setListOfRestraunt,
+    setCurrentPage,
+  } = useRestaurantsList();
 
-  const fetchData = async () => {
-    try {
-      const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-      );
-      const json = await data.json();
+  const onlineStatus = useOnlineStatus();
 
-      // Dynamically find the card containing the restaurant list
-      const restaurantCard = json?.data?.cards.find(
-        (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants
-      );
+  if (onlineStatus === false) {
+    return (
+      <h1>oopss! you're offline !! please check your internet connection !</h1>
+    );
+  }
 
-      const restaurants =
-        restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+  const indexOfLastItem = itemPerPage * currentPage;
+  const indexOfFirstItem = indexOfLastItem - itemPerPage;
 
-      // console.log(restaurants);
+  const currentItems = filteredRestaurant.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
-      if (Array.isArray(restaurants)) {
-        setListOfRestraunt(restaurants);
-        setFilteredRestaurant(restaurants);
-      } else {
-        console.warn("Unexpected data format", json);
-      }
-    } catch (err) {
-      console.error("Error fetching restaurant data:", err);
-    }
+  const handlePrev = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentPage((prev) => prev + 1);
   };
 
   return listOfRestaurants.length === 0 ? (
@@ -89,15 +89,23 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredRestaurant.map((restaurant) => (
+        {currentItems.map((restaurant) => (
           // <RestaurantCard key={restaurant.data.id} resData={restaurant} />
-            <Link
+          <Link
             key={restaurant.info.id}
             to={"/restaurants/" + restaurant.info.id}
           >
             <ResCard resData={restaurant} />
           </Link>
         ))}
+      </div>
+      <div>
+        <div>
+          <button onClick={handlePrev}>Prev</button>
+        </div>
+        <div>
+          <button onClick={handleNext}>Next</button>
+        </div>
       </div>
     </div>
   );
