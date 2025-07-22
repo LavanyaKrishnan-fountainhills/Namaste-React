@@ -1,3 +1,7 @@
-const LOGO_URL = "https://t3.ftcdn.net/jpg/02/41/30/72/360_F_241307210_MjjaJC3SJy2zJZ6B7bKGMRsKQbdwRSze.jpg" 
+export const LOGO_URL =
+  "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png";
 
-export default LOGO_URL
+// export const MENU_API =
+//   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9351929&lng=77.62448069999999&restaurantId=";
+
+export const MENU_API = ' https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=5934&catalog_qa=undefined&submitAction=ENTER'

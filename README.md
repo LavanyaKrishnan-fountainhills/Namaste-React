@@ -20,3 +20,6 @@ we also wants to add the node_modules inside the gitignore file because it's a h
 # map over any array key property is important
 # destucturing for object properties for props passing 
 # named and default export and import module 
+
+
+ # why the body rendered has printed 2 times in body component because intial 
