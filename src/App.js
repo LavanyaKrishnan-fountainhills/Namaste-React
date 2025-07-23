@@ -15,7 +15,7 @@ const Grocery = lazy(() => import("./components/Grocery"))
 
 const AppLayout = () => {
   return (
-    <div>
+    <div className="overflow-auto h-screen">
       <Header />
       <Outlet />
       <Footer />

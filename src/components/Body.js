@@ -46,26 +46,26 @@ const Body = () => {
     setCurrentPage((prev) => prev + 1);
   };
 
+  const totalPage = Math.ceil(filteredRestaurant.length / itemPerPage);
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
+      <div className="flex justify-center items-center m-4 gap-5 ">
         <div className="search">
           <input
             type="text"
-            className="search-box"
+            className="w-60 border border-gray-300 outline-none rounded mr-6 py-2 px-3"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="py-2 px-3 bg-amber-700 rounded text-white"
             onClick={() => {
-              // Filter the restraunt cards and update the UI
-              // searchText
-              console.log(searchText);
-
+              // console.log(searchText);
               const filteredRestaurant = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
@@ -77,7 +77,7 @@ const Body = () => {
           </button>
         </div>
         <button
-          className="filter-btn"
+          className="py-2 px-3 bg-amber-700 rounded text-white"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
               (res) => res.info.avgRating > 4
@@ -88,25 +88,47 @@ const Body = () => {
           Top Rated Restaurants
         </button>
       </div>
-      <div className="res-container">
-        {currentItems.map((restaurant) => (
-          // <RestaurantCard key={restaurant.data.id} resData={restaurant} />
-          <Link
-            key={restaurant.info.id}
-            to={"/restaurants/" + restaurant.info.id}
+      <div className="">
+        <div className="grid gap-6 m-6 justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {currentItems.map((restaurant) => (
+            // <RestaurantCard key={restaurant.data.id} resData={restaurant} />
+            <Link
+              key={restaurant.info.id}
+              to={"/restaurants/" + restaurant.info.id}
+              className="flex justify-center items-center "
+            >
+              <ResCard resData={restaurant} />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center space-x-2">
+        <div>
+          <button
+            onClick={handlePrev}
+            disabled={currentPage === 1}
+            className="py-2 px-6 rounded  bg-amber-700 text-white font-bold"
           >
-            <ResCard resData={restaurant} />
-          </Link>
-        ))}
-      </div>
-      <div>
-        <div>
-          <button onClick={handlePrev}>Prev</button>
+            Prev
+          </button>
         </div>
+        <span className="font-bold">
+          Page {currentPage} of {totalPage}
+        </span>
         <div>
-          <button onClick={handleNext}>Next</button>
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPage}
+            className="py-2 px-6 rounded  bg-amber-700 text-white font-bold"
+          >
+            Next
+          </button>
+     
         </div>
+        
       </div>
+      
     </div>
   );
 };

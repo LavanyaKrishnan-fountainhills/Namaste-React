@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <footer>
-      <h1>copyright</h1>
+    <footer className=" flex justify-center items-center mt-45">
+      <h1 className="text-lg font-mono">@copyright</h1>
     </footer>
   );
 }
