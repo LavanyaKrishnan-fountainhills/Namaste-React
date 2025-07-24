@@ -1,17 +1,18 @@
 // import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
-import ResCard from "./ResCard";
+import ResCard, { WithPromotedLabel } from "./ResCard";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import useRestaurantsList from "../utils/useRestaurantsList";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const itemPerPage = 5;
 
   const [searchText, setSearchText] = useState("");
 
-  console.log("Body Rendered");
+  const {loggedInUser,setUserName} = useContext(UserContext)
 
   const {
     listOfRestaurants,
@@ -23,6 +24,10 @@ const Body = () => {
   } = useRestaurantsList();
 
   const onlineStatus = useOnlineStatus();
+
+  const RestaurantCardPromoted = WithPromotedLabel(ResCard);
+
+  // console.log("Body Rendered", listOfRestaurants);
 
   if (onlineStatus === false) {
     return (
@@ -62,6 +67,7 @@ const Body = () => {
               setSearchText(e.target.value);
             }}
           />
+           
           <button
             className="py-2 px-3 bg-amber-700 rounded text-white"
             onClick={() => {
@@ -87,17 +93,24 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
+        <label>Username</label>
+        <input type="text" value={loggedInUser}  onChange={(e) => setUserName(e.target.value)} className="border border-black p-2"/>
       </div>
       <div className="">
         <div className="grid gap-6 m-6 justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {currentItems.map((restaurant) => (
-            // <RestaurantCard key={restaurant.data.id} resData={restaurant} />
             <Link
               key={restaurant.info.id}
               to={"/restaurants/" + restaurant.info.id}
               className="flex justify-center items-center "
             >
-              <ResCard resData={restaurant} />
+              {/* if the restaurtant has promoted property we should add a promoted label to it  */}
+
+              {restaurant.info.promoted ? (
+                <RestaurantCardPromoted resData={restaurant} />
+              ) : (
+                <ResCard resData={restaurant} />
+              )}
             </Link>
           ))}
         </div>
@@ -124,11 +137,8 @@ const Body = () => {
           >
             Next
           </button>
-     
         </div>
-        
       </div>
-      
     </div>
   );
 };
