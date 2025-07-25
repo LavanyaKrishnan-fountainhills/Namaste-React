@@ -1,16 +1,25 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../utils/cartSlice";
 // import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
-
+  const dispatch = useDispatch();
   // const data = useContext(UserContext)
   // console.log(data);
   
+  //  selecot=r we are scubscribing the strore3 using selectotre 
+
+  const cartItems = useSelector((store) => store.cart.items)
+  console.log(cartItems);
+//  useEffect(() =>{
+//   dispatch(clearCart())
+//  })
 
   return (
     // <div className=" ">
@@ -25,6 +34,9 @@ const Header = () => {
           </li>
           <li className="hover:bg-amber-700 hover:py-2 hover:px-4 hover:rounded transition ">
             <Link to="/about">About</Link>
+          </li>
+             <li className="hover:bg-amber-700 hover:py-2 hover:px-4 hover:rounded transition ">
+            <Link to="/cart">Cart {cartItems.length}items</Link>
           </li>
           <li className="hover:bg-amber-700 hover:py-2 hover:px-4 hover:rounded transition">
             <Link to="/contact">Contact Us</Link>
