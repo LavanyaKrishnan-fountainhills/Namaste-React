@@ -2,6 +2,7 @@
   "name": "reactbyakshay",
   "version": "1.0.0",
   "description": "This is React by Akshay",
+
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
