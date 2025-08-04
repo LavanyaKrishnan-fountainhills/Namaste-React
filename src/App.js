@@ -32,10 +32,10 @@ const AppLayout = () => {
   return (
     <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <div className="overflow-hidden ">
+        <div className="overflow-hidden  ">
           <Header />
           <Outlet />
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </UserContext.Provider>
     </Provider>

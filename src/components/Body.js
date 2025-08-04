@@ -71,7 +71,7 @@ const Body = () => {
           <button
             className="py-2 px-3 bg-amber-700 rounded text-white"
             onClick={() => {
-              // console.log(searchText);
+
               const filteredRestaurant = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );

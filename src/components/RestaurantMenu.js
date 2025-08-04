@@ -28,6 +28,8 @@ const RestaurantMenu = () => {
       <h1 className="text-3xl text-center font-bold mb-5">{text}</h1>
       <h2 className="mb-5 font-bold text-center text-2xl">Menu</h2>
 
+      {/* here the parent restaurant menu component is actively controlling the child component that it RestaurantCategory this is knonw as controlled and uncontrolled component and it's also rarely known as lifting the state up */}
+
       {categories.map((category, index) => (
         <RestaurantCategory
           key={index}
